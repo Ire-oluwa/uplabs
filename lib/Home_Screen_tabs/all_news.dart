@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:uplabs/pages/trending.dart';
 import 'package:uplabs/utilities/constants.dart';
 import 'package:uplabs/utilities/news_container.dart';
-import 'package:uplabs/services/network.dart';
 
 class AllNews extends StatefulWidget {
   const AllNews({Key? key}) : super(key: key);
@@ -12,12 +11,6 @@ class AllNews extends StatefulWidget {
 }
 
 class _AllNewsState extends State<AllNews> {
-  @override
-  void initState() {
-    // TODO: implement initState
-    print(imageU)
-    super.initState();
-  }
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
