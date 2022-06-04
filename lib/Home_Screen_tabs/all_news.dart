@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:uplabs/pages/trending.dart';
+import 'package:uplabs/services/network.dart';
 import 'package:uplabs/utilities/constants.dart';
 import 'package:uplabs/utilities/news_container.dart';
 
@@ -11,6 +12,17 @@ class AllNews extends StatefulWidget {
 }
 
 class _AllNewsState extends State<AllNews> {
+  NewsData newsData = NewsData();
+
+  late Future<String> _imageLink;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _imageLink = newsData.getImageUrl();
+    print(_imageLink);
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -19,16 +31,29 @@ class _AllNewsState extends State<AllNews> {
         color: kTransparentColour,
         child: Column(
           children: <Widget>[
-            const SizedBox(
+            SizedBox(
               ///TODO: colour isn't necessary here.
+              ///fix the future builder
               ///add a network image.
               height: 150.0,
-              child: Padding(
-                padding: EdgeInsets.only(top: 10.0),
-                // child: Image.network(
-                //   NewsData().getImageUrl(),
-                //   fit: BoxFit.fill,
-                // ),
+              child: SizedBox(
+                child: FutureBuilder<dynamic>(
+                  initialData:
+                      'https://cdn.vox-cdn.com/thumbor/aPtSiY3IyT29LdMsLwOmVBQmIks=/0x59:2126x1172/fit-in/1200x630/cdn.vox-cdn.com/uploads/chorus_asset/file/23599259/dell_webcam_monitor.png',
+                  future: _imageLink,
+                  builder:
+                      (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                    if (snapshot.hasData) {
+                      final imageUrl = snapshot.data;
+                      Image.network(imageUrl);
+                    }
+                    return const Center(
+                      child: Text(
+                        'Error fetching this image',
+                      ),
+                    );
+                  },
+                ),
               ),
             ),
             Padding(
