@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:uplabs/Home_Screen_tabs//all_news.dart';
 import 'package:uplabs/Home_Screen_tabs//entertainment.dart';
-import 'package:uplabs/Home_Screen_tabs//sports.dart';
 import 'package:uplabs/utilities/constants.dart';
 import 'package:uplabs/utilities/tab_bar.dart';
 
@@ -12,7 +11,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 3,
+      length: 2,
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: kThemeColour,
@@ -38,7 +37,6 @@ class HomePage extends StatelessWidget {
         body: const TabBarView(
           children: [
             AllNews(),
-            Sports(),
             Entertainment(),
           ],
         ),

@@ -14,14 +14,21 @@ class AllNews extends StatefulWidget {
 class _AllNewsState extends State<AllNews> {
   NewsData newsData = NewsData();
 
-  late Future<String> _imageLink;
+  Future<String> getImageUrl() async {
+    NewsData newsData = NewsData();
+    var rawData = await newsData.getData();
+    String imageUrl = rawData['articles'][0]['urlToImage'];
+    return imageUrl;
+  }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _imageLink = newsData.getImageUrl();
-    print(_imageLink);
+    getImageUrl();
   }
+
+  late var x = newsData.getImageUrl();
 
   @override
   Widget build(BuildContext context) {
@@ -31,30 +38,26 @@ class _AllNewsState extends State<AllNews> {
         color: kTransparentColour,
         child: Column(
           children: <Widget>[
-            SizedBox(
-              ///TODO: colour isn't necessary here.
-              ///fix the future builder
-              ///add a network image.
-              height: 150.0,
-              child: SizedBox(
-                child: FutureBuilder<dynamic>(
-                  initialData:
-                      'https://cdn.vox-cdn.com/thumbor/aPtSiY3IyT29LdMsLwOmVBQmIks=/0x59:2126x1172/fit-in/1200x630/cdn.vox-cdn.com/uploads/chorus_asset/file/23599259/dell_webcam_monitor.png',
-                  future: _imageLink,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                FutureBuilder(
+                  future: getImageUrl(),
                   builder:
                       (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
                     if (snapshot.hasData) {
-                      final imageUrl = snapshot.data;
-                      Image.network(imageUrl);
+                      final theImage = snapshot.data;
+                      return Image.network(
+                        theImage,
+                        fit: BoxFit.fill,
+                      );
                     }
                     return const Center(
-                      child: Text(
-                        'Error fetching this image',
-                      ),
+                      child: Text('Error loading this image'),
                     );
                   },
                 ),
-              ),
+              ],
             ),
             Padding(
               padding: const EdgeInsets.all(20.0),
@@ -85,7 +88,6 @@ class _AllNewsState extends State<AllNews> {
                       ),
                     ],
                   ),
-                  //TODO: Extract this widget.
                   const NewsContainer(
                     newsText: '',
                     textButtonTitle: 'TECH',

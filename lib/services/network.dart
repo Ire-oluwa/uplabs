@@ -19,10 +19,8 @@ class NewsData {
 
   Future<String> getImageUrl() async {
     NewsData newsData = NewsData();
-    var data = await newsData.getData();
-    String imageUrl = data['articles'][0]['urlToImage'];
+    var nData = await newsData.getData();
+    String imageUrl = nData['articles'][0]['urlToImage'];
     return imageUrl;
   }
 }
-// var imageUrl = newsData['article'][0].urlToImage;
-// return imageUrl;

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:uplabs/pages/favourite_page.dart';
 import 'package:uplabs/pages/home_page.dart';
-import 'package:uplabs/pages/world_page.dart';
 import 'package:uplabs/services/buttom_navigation_provider.dart';
 import 'package:uplabs/utilities/constants.dart';
 
@@ -17,7 +16,6 @@ class BottomNavBar extends StatefulWidget {
 
 class _BottomNavBarState extends State<BottomNavBar> {
   final List _currentScreen = [
-    const WorldPage(),
     const HomePage(),
     const FavouritePage(),
   ];
@@ -37,12 +35,6 @@ class _BottomNavBarState extends State<BottomNavBar> {
               .currentIndex = index;
         },
         items: const [
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.language,
-            ),
-            label: 'World',
-          ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.home,

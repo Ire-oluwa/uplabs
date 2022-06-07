@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:uplabs/services/date.dart';
+
+Date date = Date();
+final String currentDate = date.printDate();
 
 const Color kThemeColour = Color(0xFF000050);
 const Color kTransparentColour = Color(0x32AEB0B2);
@@ -8,8 +12,6 @@ const TextStyle kNewsContainerTextStyle = TextStyle(
   fontWeight: FontWeight.w500,
 );
 
-// const String apiKey = '4080a7bbbacd4834bcfb66072c795145';
-// const String urlPath =
-//     'https://newsapi.org/v2/everything?q=apple&from=2022-05-31&to=2022-05-31&sortBy=popularity';
-const String newsUrl =
-    'https://newsapi.org/v2/everything?q=apple&from=2022-06-01&to=2022-06-01&sortBy=popularity&apiKey=4080a7bbbacd4834bcfb66072c795145';
+String hostFileName = 'https://newsapi.org/v2/everything?q=tesla&from=';
+String apikey = '4080a7bbbacd4834bcfb66072c795145';
+String newsUrl = '$hostFileName$currentDate&sortBy=publishedAt&apiKey=$apikey';

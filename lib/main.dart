@@ -4,7 +4,6 @@ import 'package:uplabs/pages/bottom_nav_bar.dart';
 import 'package:uplabs/pages/favourite_page.dart';
 import 'package:uplabs/pages/home_page.dart';
 import 'package:uplabs/pages/trending.dart';
-import 'package:uplabs/pages/world_page.dart';
 import 'package:uplabs/utilities/constants.dart';
 
 import 'services/buttom_navigation_provider.dart';
@@ -27,7 +26,6 @@ class MyApp extends StatelessWidget {
         BottomNavBar.id: (context) => const BottomNavBar(),
         FavouritePage.id: (context) => const FavouritePage(),
         HomePage.id: (context) => const HomePage(),
-        WorldPage.id: (context) => const WorldPage(),
         TrendingNews.id: (context) => const TrendingNews(),
       },
       theme: ThemeData(

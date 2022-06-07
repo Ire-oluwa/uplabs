@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:uplabs/services/date.dart';
 import 'package:uplabs/utilities/constants.dart';
 import 'package:uplabs/utilities/news_text_button.dart';
 
@@ -15,6 +16,9 @@ class NewsContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //TODO: wrap newsContainer in gesture detector;
+    Date date = Date();
+    String currentDate = date.printDate();
     return Padding(
       padding: const EdgeInsets.symmetric(
         vertical: 5.0,
@@ -53,7 +57,9 @@ class NewsContainer extends StatelessWidget {
                               buttonTitle: textButtonTitle,
                               colour: backgroundColour,
                             ),
-                            //TODO: time for the news should be here.
+                            SizedBox(
+                              child: Text(currentDate),
+                            )
                           ],
                         ),
                         Text(

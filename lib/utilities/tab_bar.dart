@@ -15,9 +15,6 @@ class TabBars extends StatelessWidget {
           text: 'All News',
         ),
         Tab(
-          text: 'Sports',
-        ),
-        Tab(
           text: 'Entertainment',
         ),
       ],
