@@ -16,11 +16,4 @@ class NewsData {
       return _response.statusCode;
     }
   }
-
-  Future<String> getImageUrl() async {
-    NewsData newsData = NewsData();
-    var nData = await newsData.getData();
-    String imageUrl = nData['articles'][0]['urlToImage'];
-    return imageUrl;
-  }
 }

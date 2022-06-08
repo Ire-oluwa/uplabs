@@ -12,6 +12,7 @@ const TextStyle kNewsContainerTextStyle = TextStyle(
   fontWeight: FontWeight.w500,
 );
 
-String hostFileName = 'https://newsapi.org/v2/everything?q=tesla&from=';
+String hostFileName = 'https://newsapi.org/v2/everything?q=apple&from=';
+String endPoint = 'sortBy=popularity&apiKey';
 String apikey = '4080a7bbbacd4834bcfb66072c795145';
-String newsUrl = '$hostFileName$currentDate&sortBy=publishedAt&apiKey=$apikey';
+String newsUrl = '$hostFileName$currentDate&to=$currentDate&$endPoint=$apikey';

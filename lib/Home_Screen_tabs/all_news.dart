@@ -12,8 +12,6 @@ class AllNews extends StatefulWidget {
 }
 
 class _AllNewsState extends State<AllNews> {
-  NewsData newsData = NewsData();
-
   Future<String> getImageUrl() async {
     NewsData newsData = NewsData();
     var rawData = await newsData.getData();
@@ -21,14 +19,28 @@ class _AllNewsState extends State<AllNews> {
     return imageUrl;
   }
 
+  Future<String> getFirstDescription() async {
+    NewsData newsData = NewsData();
+    var rawData = await newsData.getData();
+    String firstNewsDescription = rawData['articles'][0]['description'];
+    return firstNewsDescription;
+  }
+
+  Future<String> getFirstNews() async {
+    NewsData newsData = NewsData();
+    var rawData = await newsData.getData();
+    String firstNewsContent = rawData['articles'][0]['url'];
+    return firstNewsContent;
+  }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     getImageUrl();
+    getFirstDescription();
+    getFirstNews();
   }
-
-  late var x = newsData.getImageUrl();
 
   @override
   Widget build(BuildContext context) {
@@ -88,25 +100,39 @@ class _AllNewsState extends State<AllNews> {
                       ),
                     ],
                   ),
-                  const NewsContainer(
-                    newsText: '',
-                    textButtonTitle: 'TECH',
-                    backgroundColour: Colors.red,
+                  FutureBuilder(
+                    future: getFirstDescription(),
+                    builder: (BuildContext context,
+                        AsyncSnapshot<dynamic> snapshot) {
+                      if (snapshot.hasData) {
+                        final newsDesc = snapshot.data;
+                        return NewsContainer(
+                          newsDescription: newsDesc,
+                          textButtonTitle: 'TECH',
+                          backgroundColour: Colors.red,
+                          onSelection: () {},
+                        );
+                      }
+                      return const Text('failed to load news content');
+                    },
                   ),
-                  const NewsContainer(
-                    newsText: '',
+                  NewsContainer(
+                    newsDescription: '',
                     textButtonTitle: 'SOCIAL',
                     backgroundColour: Colors.purple,
+                    onSelection: () {},
                   ),
-                  const NewsContainer(
-                    newsText: '',
+                  NewsContainer(
+                    newsDescription: '',
                     textButtonTitle: 'CULTURE',
                     backgroundColour: Colors.green,
+                    onSelection: () {},
                   ),
-                  const NewsContainer(
-                    newsText: '',
+                  NewsContainer(
+                    newsDescription: '',
                     textButtonTitle: 'ENTERTAINMENT',
                     backgroundColour: Colors.yellow,
+                    onSelection: () {},
                   ),
                 ],
               ),
