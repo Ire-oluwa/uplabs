@@ -12,34 +12,41 @@ class AllNews extends StatefulWidget {
 }
 
 class _AllNewsState extends State<AllNews> {
-  Future<String> getImageUrl() async {
-    NewsData newsData = NewsData();
-    var rawData = await newsData.getData();
+  Future<String> getEntImageUrl() async {
+    EntertainmentNewsData newsData = EntertainmentNewsData();
+    var rawData = await newsData.getEntertainmentData();
     String imageUrl = rawData['articles'][0]['urlToImage'];
     return imageUrl;
   }
 
-  Future<String> getFirstDescription() async {
-    NewsData newsData = NewsData();
-    var rawData = await newsData.getData();
+  Future<String> getEntFirstDescription() async {
+    EntertainmentNewsData newsData = EntertainmentNewsData();
+    var rawData = await newsData.getEntertainmentData();
     String firstNewsDescription = rawData['articles'][0]['description'];
     return firstNewsDescription;
   }
 
-  Future<String> getFirstNews() async {
-    NewsData newsData = NewsData();
-    var rawData = await newsData.getData();
+  Future<String> getEntFirstNews() async {
+    EntertainmentNewsData newsData = EntertainmentNewsData();
+    var rawData = await newsData.getEntertainmentData();
     String firstNewsContent = rawData['articles'][0]['url'];
     return firstNewsContent;
   }
 
+  Future getTechNewsDescription() async {
+    TechNews techNews = TechNews();
+    var rawData = await techNews.getTechData();
+    String techNewsDescription = rawData['articles'][0]['description'];
+    return techNewsDescription;
+  }
+
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    getImageUrl();
-    getFirstDescription();
-    getFirstNews();
+    getEntImageUrl();
+    getEntFirstDescription();
+    getEntFirstNews();
+    getTechNewsDescription();
   }
 
   @override
@@ -54,11 +61,12 @@ class _AllNewsState extends State<AllNews> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 FutureBuilder(
-                  future: getImageUrl(),
+                  future: getEntImageUrl(),
                   builder:
                       (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
                     if (snapshot.hasData) {
                       final theImage = snapshot.data;
+                      //TODO: make this swipe through images instead of one image.
                       return Image.network(
                         theImage,
                         fit: BoxFit.fill,
@@ -86,7 +94,6 @@ class _AllNewsState extends State<AllNews> {
                           color: kThemeColour,
                         ),
                       ),
-                      //TODO: make this icon navigate to a page.
                       RawMaterialButton(
                         fillColor: kThemeColour,
                         shape: const CircleBorder(),
@@ -100,20 +107,26 @@ class _AllNewsState extends State<AllNews> {
                       ),
                     ],
                   ),
+                  //TODO: make the onTap/onSelection work, to display the news.
                   FutureBuilder(
-                    future: getFirstDescription(),
+                    future: getTechNewsDescription(),
                     builder: (BuildContext context,
                         AsyncSnapshot<dynamic> snapshot) {
                       if (snapshot.hasData) {
-                        final newsDesc = snapshot.data;
+                        final newsDescription = snapshot.data;
                         return NewsContainer(
-                          newsDescription: newsDesc,
+                          newsDescription: newsDescription,
                           textButtonTitle: 'TECH',
                           backgroundColour: Colors.red,
                           onSelection: () {},
                         );
                       }
-                      return const Text('failed to load news content');
+                      return NewsContainer(
+                        newsDescription: '',
+                        textButtonTitle: 'TECH',
+                        backgroundColour: Colors.red,
+                        onSelection: () {},
+                      );
                     },
                   ),
                   NewsContainer(
@@ -128,11 +141,26 @@ class _AllNewsState extends State<AllNews> {
                     backgroundColour: Colors.green,
                     onSelection: () {},
                   ),
-                  NewsContainer(
-                    newsDescription: '',
-                    textButtonTitle: 'ENTERTAINMENT',
-                    backgroundColour: Colors.yellow,
-                    onSelection: () {},
+                  FutureBuilder(
+                    future: getEntFirstDescription(),
+                    builder: (BuildContext context,
+                        AsyncSnapshot<dynamic> snapshot) {
+                      if (snapshot.hasData) {
+                        final newsDesc = snapshot.data;
+                        return NewsContainer(
+                          newsDescription: newsDesc,
+                          textButtonTitle: 'ENTERTAINMENT',
+                          backgroundColour: Colors.yellow,
+                          onSelection: () {},
+                        );
+                      }
+                      return NewsContainer(
+                        newsDescription: 'failed to load news content',
+                        onSelection: () {},
+                        backgroundColour: Colors.yellow,
+                        textButtonTitle: 'ENTERTAINMENT',
+                      );
+                    },
                   ),
                 ],
               ),

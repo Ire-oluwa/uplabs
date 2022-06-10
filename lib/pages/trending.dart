@@ -1,45 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:uplabs/home_screen_tabs/all_news.dart';
 import 'package:uplabs/services/network.dart';
+import 'package:uplabs/utilities/constants.dart';
 
-NewsData newsData = NewsData();
+EntertainmentNewsData newsData = EntertainmentNewsData();
+const AllNews _allNews = AllNews();
+TechNews techNews = TechNews();
+const String newsDesc = '';
+
 
 class TrendingNews extends StatelessWidget {
   static const String id = 'TrendingNews';
 
-  const TrendingNews({Key? key}) : super(key: key);
+  const TrendingNews({
+    Key? key,
+  }) : super(key: key);
 
-  Future<String> getNewsDescription() async {
-    var x = await newsData.getData();
-    String newsDescription = x['articles'][0]['description'];
-    return newsDescription;
-  }
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.only(top: 15.0),
-          child: SizedBox(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: const Icon(
-                    Icons.arrow_back_ios_new,
-                  ),
-                ),
-                const Center(
-                  child: Text('Twitter Trends 🤪'),
-                )
-              ],
-            ),
+      body: Container(
+        color: kTransparentColour,
+        child: const Center(
+          child: Text(
+            'Trending',
+            style: TextStyle(color: Colors.white),
           ),
         ),
       ),
     );
+  }
+}
+
+Widget condition() {
+  Widget widget;
+  switch(newsDesc){
+    case newsDesc == techNews.
   }
 }

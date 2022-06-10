@@ -18,7 +18,6 @@ class NewsContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //TODO: wrap newsContainer in gesture detector;
     Date date = Date();
     String currentDate = date.printDate();
     return Padding(
