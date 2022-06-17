@@ -8,13 +8,14 @@ class NewsContainer extends StatelessWidget {
   final String newsDescription;
   final String textButtonTitle;
   final void Function() onSelection;
-  const NewsContainer({
-    Key? key,
-    required this.newsDescription,
-    required this.textButtonTitle,
-    required this.backgroundColour,
-    required this.onSelection,
-  }) : super(key: key);
+
+  const NewsContainer(
+      {Key? key,
+      required this.newsDescription,
+      required this.textButtonTitle,
+      required this.backgroundColour,
+      required this.onSelection})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

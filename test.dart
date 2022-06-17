@@ -2,14 +2,13 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:uplabs/services/date.dart';
-import 'package:uplabs/utilities/constants.dart';
 
 Date date = Date();
 String currentDate = date.printDate();
 
-class TechNews {
+class News {
   Future getData() async {
-    http.Response _response = await http.get(Uri.parse(techNewsUrl));
+    http.Response _response = await http.get(Uri.parse(''));
     if (_response.statusCode == 200) {
       var _data = _response.body;
       var data = jsonDecode(_data);
@@ -18,6 +17,17 @@ class TechNews {
       return _response.statusCode;
     }
   }
+
+  Future<String> socialNews() async {
+    News news = News();
+    var rawData = await news.getData();
+    String socialNewsContent = rawData['articles'][0]['content'];
+    print(socialNewsContent);
+    return socialNewsContent;
+  }
 }
 
-void main() async {}
+void main() async {
+  News news = News();
+  await news.socialNews();
+}
