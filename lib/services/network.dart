@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:uplabs/models/news_response.dart';
 import 'package:uplabs/utilities/constants.dart';
 
 class NewsApiService {
@@ -8,16 +9,19 @@ class NewsApiService {
     return 'https://newsapi.org/v2/top-headlines?country=$country&category=$category&apiKey=$apikey';
   }
 
-  static Future fetchNews(String category, String country) async {
+  static Future<NewsResponse> fetchNews(String category, String country) async {
     http.Response _response = await http.get(
       Uri.parse(_getCategoryUrl(category, country)),
     );
+    var newsResponse = null;
+
     if (_response.statusCode == 200) {
       var _data = _response.body;
       var data = jsonDecode(_data);
-      return data;
+      var newsResponse = NewsResponse.fromJson(data);
+      return newsResponse;
     } else {
-      return _response.statusCode;
+      return newsResponse;
     }
   }
 }
