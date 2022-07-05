@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:uplabs/pages/bottom_nav_bar.dart';
 import 'package:uplabs/pages/favourite_page.dart';
-import 'package:uplabs/pages/home_page.dart';
+import 'package:uplabs/pages/news_items.dart';
 import 'package:uplabs/utilities/constants.dart';
 
 import 'services/buttom_navigation_provider.dart';
@@ -19,12 +19,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'UpLabs',
       debugShowCheckedModeBanner: false,
       initialRoute: BottomNavBar.id,
       routes: {
         BottomNavBar.id: (context) => const BottomNavBar(),
         FavouritePage.id: (context) => const FavouritePage(),
-        HomePage.id: (context) => const HomePage(),
+        NewsItems.id: (context) => const NewsItems(),
       },
       theme: ThemeData(
         primaryColor: kThemeColour,

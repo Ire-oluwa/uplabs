@@ -13,7 +13,8 @@ class NewsApiService {
     http.Response _response = await http.get(
       Uri.parse(_getCategoryUrl(category, country)),
     );
-    var newsResponse = null;
+    // ignore: prefer_typing_uninitialized_variables
+    var newsResponse;
 
     if (_response.statusCode == 200) {
       var _data = _response.body;

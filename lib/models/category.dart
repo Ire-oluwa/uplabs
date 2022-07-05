@@ -9,5 +9,6 @@ List<Category> getAllCategories() {
     Category('Technology'),
     Category('Business'),
     Category('Sports'),
+    Category('Entertainment'),
   ];
 }

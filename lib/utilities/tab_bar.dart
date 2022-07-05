@@ -1,23 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:uplabs/models/category.dart';
 
-class TabBars extends StatelessWidget {
-  const TabBars({
-    Key? key,
-  }) : super(key: key);
+class NewsTabs extends StatelessWidget {
+  const NewsTabs({Key? key, required this.newsTitle}) : super(key: key);
+  final String newsTitle;
 
   @override
   Widget build(BuildContext context) {
-    return const TabBar(
-      indicatorColor: Colors.transparent,
-      //isScrollable: true,
-      tabs: [
-        Tab(
-          text: 'All News',
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8.0),
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.white),
+          borderRadius: BorderRadius.circular(4.0),
         ),
-        Tab(
-          text: 'Entertainment',
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            newsTitle,
+            style: const TextStyle(
+              color: Colors.white70,
+            ),
+          ),
         ),
-      ],
+      ),
     );
   }
+}
+
+List<NewsTabs> newsTabs() {
+  return getAllCategories()
+      .map((e) => NewsTabs(
+            newsTitle: e.title,
+          ))
+      .toList();
 }
