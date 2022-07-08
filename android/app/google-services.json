@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "157183827549",
+    "project_id": "uplabs-9b5d5",
+    "storage_bucket": "uplabs-9b5d5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:157183827549:android:d864f61651ef15d48b77b4",
+        "android_client_info": {
+          "package_name": "com.example.uplabs"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "157183827549-n2215eastgb0akjvhhllten79377rila.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDlCt1YN2jpsdv2E14KxxCjblicsBX-_-o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "157183827549-n2215eastgb0akjvhhllten79377rila.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
