@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:uplabs/models/favourite_list.dart';
 import 'package:uplabs/pages/bottom_nav_bar.dart';
-import 'package:uplabs/pages/favourite_page.dart';
+// import 'package:uplabs/pages/favourite_page.dart';
 import 'package:uplabs/pages/news_items.dart';
 import 'package:uplabs/utilities/constants.dart';
 
 import 'services/buttom_navigation_provider.dart';
 
 void main() => runApp(
-      ChangeNotifierProvider<ButtomNavigationBar>(
+      ChangeNotifierProvider<FavouriteList>(
+        create: (_) => FavouriteList(),
+        child: ChangeNotifierProvider<ButtomNavigationBar>(
           create: (BuildContext context) => ButtomNavigationBar(),
-          child: const MyApp()),
+          child: const MyApp(),
+        ),
+      ),
     );
 
 class MyApp extends StatelessWidget {
@@ -24,7 +29,7 @@ class MyApp extends StatelessWidget {
       initialRoute: BottomNavBar.id,
       routes: {
         BottomNavBar.id: (context) => const BottomNavBar(),
-        FavouritePage.id: (context) => const FavouritePage(),
+        // FavouritePage.id: (context) => const FavouritePage(),
         NewsItems.id: (context) => const NewsItems(),
       },
       theme: ThemeData(

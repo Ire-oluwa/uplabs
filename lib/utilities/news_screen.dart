@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:uplabs/database/favourite_database.dart';
+import 'package:uplabs/models/favourite.dart';
+import 'package:uplabs/models/favourite_list.dart';
 import 'package:uplabs/models/news_response.dart';
 import 'package:uplabs/pages/display_full_news.dart';
 import 'package:uplabs/services/network.dart';
@@ -15,6 +19,7 @@ class NewsScreen extends StatefulWidget {
 class _NewsScreenState extends State<NewsScreen> {
   late Future<NewsResponse> _newsResponse;
   late String postUrl;
+  late bool isClicked = false;
 
   Future<NewsResponse> fetchNews(String category, String country) async {
     var rawData = await NewsApiService.fetchNews(category, country);
@@ -25,6 +30,16 @@ class _NewsScreenState extends State<NewsScreen> {
   void initState() {
     _newsResponse = fetchNews(widget.categoryTitle, 'ng');
     super.initState();
+  }
+
+  void toggleFavourite() {
+    setState(() {
+      if (isClicked) {
+        isClicked = false;
+      } else {
+        isClicked = true;
+      }
+    });
   }
 
   @override
@@ -43,8 +58,8 @@ class _NewsScreenState extends State<NewsScreen> {
         return ListView.builder(
           itemCount: snapshot.data?.articles?.length,
           itemBuilder: (BuildContext context, int index) {
-            var articles = snapshot.data?.articles?[index];
-            postUrl = articles?.url ?? 'http://google.com';
+            var article = snapshot.data?.articles?[index];
+            postUrl = article?.url ?? 'http://google.com';
             return ListTile(
               onTap: () {
                 Navigator.push(
@@ -56,33 +71,42 @@ class _NewsScreenState extends State<NewsScreen> {
                   ),
                 );
               },
-              leading: SizedBox(
+              leading: Image.network(
+                article?.urlToImage ?? defaultNetworkImage,
+                height: 100.0,
                 width: 130.0,
-                child: Image.network(
-                  articles?.urlToImage ?? defaultNetworkImage,
-                  height: 100.0,
-                ),
               ),
               title: Text(
-                articles?.title ?? '',
+                article?.title ?? '',
                 maxLines: 2,
               ),
               subtitle: Text(
-                articles?.description ?? '',
+                article?.description ?? '',
                 overflow: TextOverflow.ellipsis,
               ),
               trailing: IconButton(
-                onPressed: () {
-                  //TODO:add the clicked news tile to the list of favourites.
-                  const Icon(
-                    Icons.bookmark_added,
-                    color: kThemeColour,
-                  );
+                onPressed: () async {
+                  // ignore: todo
+                  //TODO: not sure if this will work too.
+                  toggleFavourite();
+                  Provider.of<FavouriteList>(context, listen: false)
+                      .favourites
+                      .add(
+                        Favourite(
+                          imageUrl: article?.urlToImage ?? defaultNetworkImage,
+                          title: article?.title ?? '',
+                          description: article?.description ?? '',
+                        ),
+                      );
+                  await FavouriteDatabase.instance
+                      .update(Provider.of<FavouriteList>(context).favourite);
                 },
-                icon: const Icon(
-                  Icons.bookmark_border,
-                  color: Colors.grey,
-                ),
+                icon: isClicked
+                    ? const Icon(
+                        Icons.bookmark,
+                        color: kThemeColour,
+                      )
+                    : const Icon(Icons.bookmark_border),
               ),
             );
           },

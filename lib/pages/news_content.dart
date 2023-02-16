@@ -22,7 +22,6 @@ class _NewsContentState extends State<NewsContent> {
 
   @override
   void initState() {
-    // TODO: implement initState
     _newsContent = fetchNews(widget.category.title);
     super.initState();
   }
